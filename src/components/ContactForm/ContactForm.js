@@ -64,7 +64,10 @@ export default function ContactForm() {
       </label>
       <label className={s.label}>
         <InputMask
-          ref={register}
+          ref={register({
+            required: true,
+            pattern: /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){12}(\s*)?$/,
+          })}
           className={s.number}
           type="tel"
           name="number"
@@ -72,6 +75,10 @@ export default function ContactForm() {
           onChange={e => setNumber(e.target.value)}
           mask="+3 8(099) 999-99-99"
         />
+        {errors.number && (
+          <p className={s.errorText}>It must be a 12-character number</p>
+        )}
+
         {/* <input
           ref={register({
             required: true,
